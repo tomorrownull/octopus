@@ -57,7 +57,7 @@ If you are trying to scope everything to a specific shard, use Octopus.using ins
         if Octopus.rails40? || Octopus.rails41_only?
           coder['attributes'].delete('current_shard')
         else
-          coder['attributes'].send(:attributes).send(:values).delete('current_shard')
+          coder['attributes'].send(:attributes).send(:values).delete('current_shard') unless coder['attributes'].send(:attributes).send(:values).frozen?
           coder['attributes'].send(:attributes).send(:delegate_hash).delete('current_shard')  if (coder['attributes'].send(:attributes).respond_to?(:delegate_hash))
         end
 
